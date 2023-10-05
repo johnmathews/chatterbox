@@ -113,3 +113,46 @@ Please file feedback and issues over on the [Supabase GitHub org](https://github
 - [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
 - [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
 - [Next.js Auth Helpers Docs](https://supabase.com/docs/guides/auth/auth-helpers/nextjs)
+
+
+## External APIs
+
+### ChatGPT
+
+Conversational text, and voice if its able to
+
+### Seamless
+
+Facebook's multi-language model. Voice to Voice and voice to text
+
+### LanguageText API 
+
+Something to handle grammar and spelling in Dutch and other languages
+
+## Hosting Decisions
+
+Host on vercel and integrate with Supabase for a backend
+
+
+## System Overview
+
+```mermaid
+sequenceDiagram
+    participant Client as Client
+    participant WebApp as Web App (Backend + Database)
+    participant ConvAI as Conversational AI (External API)
+    participant TransAI as Translation AI (External API)
+    participant GrammarAPI as Grammar API (External API)
+    
+    Client->>WebApp: User logs in and starts a session. Chooses parameters. 
+    ConvAI->>WebApp: AI asks user a question - text and voice
+    WebApp->>Client: User read the question
+    WebApp->>TransAI: Question is converted to speech
+    Client->>WebApp: User speaks an answer
+    WebApp->>TransAI: User's spoken answer is converted to text
+    TransAI->>WebApp: Send text to WebApp
+    TransAI->>GrammarAPI: Send text to GrammarAPI
+    GrammarAPI->>WebApp: Send grammar corrections
+    WebApp->>ConvAI:Send users response as text
+
+```
